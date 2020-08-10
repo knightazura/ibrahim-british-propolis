@@ -1,28 +1,17 @@
 <template>
-  <div class="container">
+  <div class="container bg-red-100">
     <div>
-      <Logo />
-      <h1 class="title">
-        british-propolis
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+      <div class="bg-white rounded-lg p-6 shadow-lg mb-4">
+        <div>
+          <h2 class="text-lg">Erin Lindford</h2>
+          <div class="text-purple-500">Product Engineer</div>
+          <div clas>erinlindford@example.com</div>
+          <div clas>(555) 765-4321</div>
+        </div>
       </div>
+      <li v-for="post of posts" :key="post.slug">
+        <NuxtLink :to="'/blog/' + post.slug">{{ post.title }}</NuxtLink>
+      </li>
     </div>
   </div>
 </template>
@@ -36,22 +25,19 @@ export default Vue.extend({
       script: [{ src: 'https://identity.netlify.com/v1/netlify-identity-widget.js' }],
     };
   },
+  async asyncData({ $content }) {
+    const posts = await $content("blog").fetch();
+
+    return {
+      posts,
+    };
+  },
 })
 </script>
 
 <style>
-/* Sample `apply` at-rules with Tailwind CSS
 .container {
-@apply min-h-screen flex justify-center items-center text-center mx-auto;
-}
-*/
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  @apply min-h-screen flex justify-center items-center mx-auto;
 }
 
 .title {
